@@ -1,0 +1,25 @@
+---
+- name: 'Create user: {{ db.get("user", db.name) }}'
+  command: |
+    docker exec {{ postgres_ha_cont_name }}
+      psql
+        --username={{ postgres_ha_admin_user }}
+        --port={{ postgres_ha_cont_port }}
+        --command
+      "DO $$
+      BEGIN
+        CREATE USER \"{{ db.get("user", db.name) }}\" PASSWORD '{{ db.pass | mandatory }}';
+        EXCEPTION WHEN DUPLICATE_OBJECT THEN
+        RAISE NOTICE 'not creating role {{ db.get("user", db.name) }} -- it already exists';
+      END
+      $$;"
+
+- name: 'Create database: {{ db.name | mandatory }}'
+  shell: |
+    echo "SELECT
+      'CREATE DATABASE \"{{ db.name }}\" WITH OWNER \"{{ db.get("user", db.name) }}\";'
+      WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = '{{ db.name }}')\\\gexec" |
+    docker exec -i {{ postgres_ha_cont_name }} \
+      psql
+        --username={{ postgres_ha_admin_user }}
+        --port={{ postgres_ha_cont_port }}

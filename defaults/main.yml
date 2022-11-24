@@ -1,0 +1,41 @@
+---
+postgres_ha_service_name: 'postgres-ha'
+postgres_ha_service_path: '/docker/{{ postgres_ha_service_name }}'
+postgres_ha_compose_file: '{{ postgres_ha_service_path }}/docker-compose.yml'
+
+postgres_ha_cont_name: '{{ postgres_ha_service_name }}'
+postgres_ha_cont_data_vol: '{{ postgres_ha_service_path }}/data'
+postgres_ha_cont_image: 'postgres:15.1-alpine'
+postgres_ha_cont_port: 5432
+postgres_ha_cont_uid: 70
+postgres_ha_host_uid: '{{ 100000 + hackmd_db_cont_uid | int }}'
+postgres_ha_cont_run_size: '512K'
+postgres_ha_cont_tmp_size: '256K'
+
+# Admin Auth
+postgres_ha_admin_user: 'postgres'
+postgres_ha_admin_pass: 'changeMeIfYouCare'
+# Replication Auth
+postgres_ha_replica_user: 'replicator'
+postgres_ha_replica_pass: 'changeMeIfYouCare'
+postgres_ha_replica_slot: 'main'
+#postgres_ha_replica_host: 'db-master.example.org'
+#postgres_ha_replica_port: 5432
+#postgres_ha_replica_allowed_addresses: ['10.0.0.0/8']
+
+# Mandatory Configuration
+#postgres_ha_is_master: true
+
+# Optional Configuration
+postgres_ha_db_name: 'postgres'
+
+# Additional Databases
+postgres_ha_databases: []
+#  - name: 'dbtest'
+#    user: 'dbuser'
+#    pass: 'dbpass'
+
+# general container management
+compose_recreate: 'smart'
+compose_state: 'present'
+compose_restart: false

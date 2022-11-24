@@ -1,0 +1,17 @@
+---
+- name: 'Allow VPN connections in HBA config'
+  register: postgres_ha_hba
+  blockinfile:
+    path:   '{{ postgres_ha_cont_data_vol }}/pgdata/pg_hba.conf'
+    marker: '# {mark} ANSIBLE MANAGED REPLICATORS'
+    block: |
+      {% for addr in postgres_ha_replica_allowed_addresses %}
+      host  replication  replicator  {{ addr }}  md5
+      {% endfor %}
+
+- name: 'Restart database container'
+  when: postgres_ha_hba.changed
+  args:
+    chdir: '{{ postgres_ha_service_path }}'
+  command: |
+    docker-compose restart db

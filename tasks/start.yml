@@ -1,0 +1,8 @@
+---
+- name: 'Create database container'
+  docker_compose:
+    project_src: '{{ postgres_ha_service_path }}'
+    state:       '{{ compose_state }}'
+    restarted:   '{{ compose_restart }}'
+    recreate:    '{{ compose_recreate }}'
+    pull: true

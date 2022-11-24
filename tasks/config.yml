@@ -1,0 +1,19 @@
+---
+- name: 'Create service and container folders'
+  file:
+    dest:  '{{ item }}'
+    state: 'directory'
+    owner: 'dockremap'
+    group: 'docker'
+    mode:  0775
+  with_items:
+    - '{{ postgres_ha_service_path }}'
+    - '{{ postgres_ha_cont_data_vol }}'
+
+- name: 'Create compose file'
+  template:
+    src:   'docker-compose.yml.j2'
+    dest:  '{{ postgres_ha_compose_file }}'
+    owner: 'dockremap'
+    group: 'docker'
+    mode:  0644

@@ -1,0 +1,33 @@
+---
+version: '3.7'
+services:
+  db:
+    container_name: '{{ postgres_ha_cont_name }}'
+    image: '{{ postgres_ha_cont_image }}'
+    restart: always
+    environment:
+      POSTGRES_DB:       '{{ postgres_ha_db_name | mandatory }}'
+      POSTGRES_USER:     '{{ postgres_ha_admin_user }}'
+      POSTGRES_PASSWORD: '{{ postgres_ha_admin_pass }}'
+{% if not postgres_ha_is_master %}
+      PGPASSWORD:        '{{ postgres_ha_replica_pass }}'
+{% endif %}
+      # This fixes chmod errors on DB startup due to volume + userns-remap
+      PGDATA: '/var/lib/postgresql/data/pgdata'
+    ports:
+      - '{{ postgres_ha_cont_port }}:{{ postgres_ha_cont_port }}'
+    tmpfs:
+      - '/run/postgresql:size={{ postgres_ha_cont_run_size }}'
+      - '/tmp:size={{ postgres_ha_cont_tmp_size }}'
+    volumes:
+      - '{{ postgres_ha_cont_data_vol }}:/var/lib/postgresql/data'
+    command: |
+      -p {{ postgres_ha_cont_port }}
+    healthcheck:
+      interval: 30s
+      retries: 5
+      test: [
+        'CMD', 'pg_isready',
+        '-p', '{{ postgres_ha_cont_port }}',
+        '-U', '{{ postgres_ha_admin_user }}'
+      ]

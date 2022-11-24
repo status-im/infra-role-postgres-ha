@@ -1,0 +1,25 @@
+---
+- name: 'Check if replica DB config exists'
+  stat:
+    path: '{{ postgres_ha_cont_data_vol }}/pgdata/postgresql.auto.conf'
+  register: postgres_ha_auto_conf
+
+- name: 'Initialize DB with base backup'
+  when: not postgres_ha_auto_conf.stat.exists
+  args:
+    chdir: '{{ postgres_ha_service_path }}'
+  command: |
+    docker-compose run --rm 
+        --env=PGPASSWORD={{ postgres_ha_replica_pass }}
+        --name {{ postgres_ha_service_name }}-backup
+        -- db 
+      pg_basebackup
+        --host={{ postgres_ha_replica_host }}
+        --port={{ postgres_ha_replica_port }}
+        --username={{ postgres_ha_replica_user }}
+        --slot={{ postgres_ha_replica_slot }}
+        --verbose
+        --create-slot
+        --pgdata=/var/lib/postgresql/data/pgdata
+        --write-recovery-conf
+        --checkpoint=fast

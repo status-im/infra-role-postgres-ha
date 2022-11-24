@@ -1,0 +1,22 @@
+---
+- import_tasks: config.yml
+
+- import_tasks: start.yml
+  when: postgres_ha_is_master
+
+- import_tasks: hba.yml
+  when: postgres_ha_is_master
+
+- import_tasks: users.yml
+  when: postgres_ha_is_master
+
+- import_tasks: replica.yml
+  when: not postgres_ha_is_master
+
+- import_tasks: start.yml
+  when: not postgres_ha_is_master
+
+- include_tasks: databases.yml
+  with_items: '{{ postgres_ha_databases }}'
+  loop_control:
+    loop_var: db
