@@ -20,3 +20,5 @@
   with_items: '{{ postgres_ha_databases }}'
   loop_control:
     loop_var: db
+
+- import_tasks: consul.yml

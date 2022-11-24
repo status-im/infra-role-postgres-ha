@@ -1,0 +1,15 @@
+---
+- name: Create Consul service definition
+  include_role: name=consul-service
+  vars:
+    consul_config_name: '{{ postgres_ha_service_name }}'
+    consul_services:
+      - id:   '{{ postgres_ha_service_name }}'
+        name: '{{ postgres_ha_consul_service }}'
+        tags: ['postgres', 'database']
+        port: '{{ postgres_ha_cont_port }}'
+        checks:
+          - id:   '{{ postgres_ha_service_name }}-status'
+            name: 'PostgreSQL DB Healthcheck'
+            type: 'tcp'
+            tcp:  'localhost:{{ postgres_ha_cont_port }}'

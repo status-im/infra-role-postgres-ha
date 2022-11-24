@@ -35,6 +35,9 @@ postgres_ha_databases: []
 #    user: 'dbuser'
 #    pass: 'dbpass'
 
+# Consul
+postgres_ha_consul_service: 'postgres'
+
 # general container management
 compose_recreate: 'smart'
 compose_state: 'present'
