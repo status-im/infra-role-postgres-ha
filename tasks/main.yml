@@ -22,3 +22,4 @@
     loop_var: db
 
 - import_tasks: consul.yml
+- import_tasks: backup.yml

@@ -5,6 +5,7 @@ postgres_ha_compose_file: '{{ postgres_ha_service_path }}/docker-compose.yml'
 
 postgres_ha_cont_name: '{{ postgres_ha_service_name }}'
 postgres_ha_cont_data_vol: '{{ postgres_ha_service_path }}/data'
+postgres_ha_cont_backup_vol: '{{ postgres_ha_service_path }}/backup'
 postgres_ha_cont_image: 'postgres:15.1-alpine'
 postgres_ha_cont_port: 5432
 postgres_ha_cont_uid: 70
@@ -34,6 +35,12 @@ postgres_ha_databases: []
 #  - name: 'dbtest'
 #    user: 'dbuser'
 #    pass: 'dbpass'
+
+# Backups
+postgres_ha_backup_service_name: 'dump-{{ telemetry_service_name }}-db'
+postgres_ha_backup_frequency: daily
+postgres_ha_backup_timeout: 600
+postgres_ha_backup_user: 'root'
 
 # Consul
 postgres_ha_consul_service: 'postgres'
