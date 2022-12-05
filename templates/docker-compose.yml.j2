@@ -21,7 +21,7 @@ services:
       - '/tmp:size={{ postgres_ha_cont_tmp_size }}'
     volumes:
       - '{{ postgres_ha_cont_data_vol }}:/var/lib/postgresql/data'
-      - '{{ postgres_ha_cont_backup_vol }}/backup:/backup'
+      - '{{ postgres_ha_cont_backup_vol }}:/backup'
     command: |
       -p {{ postgres_ha_cont_port }}
     healthcheck:
