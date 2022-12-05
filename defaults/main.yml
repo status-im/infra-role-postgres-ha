@@ -37,7 +37,7 @@ postgres_ha_databases: []
 #    pass: 'dbpass'
 
 # Backups
-postgres_ha_backup_service_name: 'dump-{{ telemetry_service_name }}-db'
+postgres_ha_backup_service_name: 'dump-{{ postgres_ha_service_name }}-db'
 postgres_ha_backup_frequency: daily
 postgres_ha_backup_timeout: 600
 postgres_ha_backup_user: 'root'
