@@ -17,6 +17,7 @@
   when: not postgres_ha_is_master
 
 - include_tasks: databases.yml
+  when: postgres_ha_is_master
   with_items: '{{ postgres_ha_databases }}'
   loop_control:
     loop_var: db
