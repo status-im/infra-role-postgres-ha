@@ -1,6 +1,6 @@
 ---
 - name: 'Create user replication user'
-  command: |
+  command: >
     docker exec {{ postgres_ha_cont_name }}
       psql
         --username={{ postgres_ha_admin_user }}
