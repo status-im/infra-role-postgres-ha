@@ -8,10 +8,10 @@
   when: not postgres_ha_auto_conf.stat.exists
   args:
     chdir: '{{ postgres_ha_service_path }}'
-  command: |
-    docker-compose run --rm 
-        --env=PGPASSWORD={{ postgres_ha_replica_pass }}
-        --name {{ postgres_ha_service_name }}-backup
+  command: >
+    docker-compose run --rm
+        -e PGPASSWORD={{ postgres_ha_replica_pass }}
+        --name={{ postgres_ha_service_name }}-init
         -- db 
       pg_basebackup
         --host={{ postgres_ha_replica_host }}
