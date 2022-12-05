@@ -15,12 +15,11 @@
       $$;"
 
 - name: 'Create database: {{ db.name | mandatory }}'
-  command: >
-    docker exec -i {{ postgres_ha_cont_name }}
-      psql
-        --username={{ postgres_ha_admin_user }}
+  shell: >
+    echo "SELECT
+        'CREATE DATABASE \"{{ db.name }}\" WITH OWNER \"{{ db.get("user", db.name) }}\";'
+        WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = '{{ db.name }}')\\\gexec" |
+    docker exec -i {{ postgres_ha_cont_name }} \
+      psql \
+        --username={{ postgres_ha_admin_user }} \
         --port={{ postgres_ha_cont_port }}
-        --command
-      "SELECT
-      'CREATE DATABASE \"{{ db.name }}\" WITH OWNER \"{{ db.get("user", db.name) }}\";'
-      WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = '{{ db.name }}');"
