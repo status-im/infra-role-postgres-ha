@@ -9,6 +9,7 @@
   with_items:
     - '{{ postgres_ha_service_path }}'
     - '{{ postgres_ha_cont_data_vol }}'
+    - '{{ postgres_ha_cont_backup_vol }}'
 
 - name: 'Create compose file'
   template:
