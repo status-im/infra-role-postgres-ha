@@ -31,6 +31,13 @@ postgres_ha_databases:
 ```
 The `user` field is optional. DB name is used by default.
 
+Backup settings can be adjusted using:
+```yaml
+postgres_ha_backup: false
+postgres_ha_backup_frequency: 'weekly'
+postgres_ha_backup_timeout: 1200
+```
+
 # Management
 
 The service is managed using [Docker Compose](https://docs.docker.com/compose/):
