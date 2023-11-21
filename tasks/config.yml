@@ -23,10 +23,14 @@
   with_fileglob:
     - 'templates/init/*.sql'
 
-- name: 'Create compose file'
+- name: Install PostgreSQL client
+  apt:
+    name: 'postgresql-client'
+
+- name: Create Admin wrapper script
   template:
-    src:   'docker-compose.yml.j2'
-    dest:  '{{ postgres_ha_compose_file }}'
-    owner: 'dockremap'
+    src:   'scripts/admin.sh.j2'
+    dest:  '{{ postgres_ha_service_path }}/admin.sh'
+    owner: 'root'
     group: 'docker'
-    mode:  0644
+    mode:  0750

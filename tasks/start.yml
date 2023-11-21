@@ -1,4 +1,12 @@
 ---
+- name: 'Create compose file'
+  template:
+    src:   'docker-compose.yml.j2'
+    dest:  '{{ postgres_ha_compose_file }}'
+    owner: 'dockremap'
+    group: 'docker'
+    mode:  0644
+
 - name: 'Create database container'
   docker_compose:
     project_src: '{{ postgres_ha_service_path }}'
