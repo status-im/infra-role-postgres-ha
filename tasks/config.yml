@@ -9,7 +9,19 @@
   with_items:
     - '{{ postgres_ha_service_path }}'
     - '{{ postgres_ha_cont_data_vol }}'
+    - '{{ postgres_ha_cont_init_vol }}'
     - '{{ postgres_ha_cont_backup_vol }}'
+
+- name: Create dbinit SQL files
+  when: postgres_ha_is_master
+  template:
+    src:   '{{ item }}'
+    dest:  '{{ postgres_ha_cont_init_vol }}/{{ item | basename }}'
+    owner: '{{ postgres_ha_host_uid }}'
+    group: 'dockremap'
+    mode:  0640
+  with_fileglob:
+    - 'templates/init/*.sql'
 
 - name: 'Create compose file'
   template:

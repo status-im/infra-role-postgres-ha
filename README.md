@@ -31,6 +31,8 @@ postgres_ha_databases:
 ```
 The `user` field is optional. DB name is used by default.
 
+:warning: __WARNING:__ This only takes effect at database creation.
+
 Backup settings can be adjusted using:
 ```yaml
 postgres_ha_backup: false

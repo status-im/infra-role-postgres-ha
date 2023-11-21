@@ -5,6 +5,7 @@ postgres_ha_compose_file: '{{ postgres_ha_service_path }}/docker-compose.yml'
 
 postgres_ha_cont_name: '{{ postgres_ha_service_name }}'
 postgres_ha_cont_data_vol: '{{ postgres_ha_service_path }}/data'
+postgres_ha_cont_init_vol: '{{ postgres_ha_service_path }}/init'
 postgres_ha_cont_backup_vol: '{{ postgres_ha_service_path }}/backup'
 postgres_ha_cont_image: 'postgres:15.1-alpine'
 postgres_ha_cont_port: 5432
