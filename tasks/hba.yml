@@ -1,4 +1,9 @@
 ---
+- name: 'Wait for the DB to be available'
+  wait_for:
+    port: '{{ postgres_ha_cont_port }}'
+    delay: 5
+
 - name: 'Allow VPN connections in HBA config'
   register: postgres_ha_hba
   blockinfile:
