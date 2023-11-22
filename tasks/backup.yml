@@ -2,11 +2,11 @@
 - name: 'Create timer for database backup'
   include_role: name=systemd-timer
   vars:
-    systemd_timer_name: '{{ postgres_ha_backup_service_name }}'
     systemd_timer_description: 'Dump High-Availability PostgreSQL database.'
-    systemd_timer_user: '{{ postgres_ha_backup_user }}'
-    systemd_timer_frequency: '{{ postgres_ha_backup_frequency }}'
+    systemd_timer_name:        '{{ postgres_ha_backup_service_name }}'
+    systemd_timer_user:        '{{ postgres_ha_backup_user }}'
+    systemd_timer_frequency:   '{{ postgres_ha_backup_frequency }}'
     systemd_timer_timeout_sec: '{{ postgres_ha_backup_timeout }}'
+    systemd_timer_script_path: '/docker/{{ postgres_ha_service_name }}/backup.sh'
     systemd_timer_after_extra: 'docker.service'
     systemd_timer_start_on_creation: false
-    systemd_timer_script_content: '{{ lookup("template", "backup.sh.j2") }}'

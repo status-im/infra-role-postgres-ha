@@ -27,10 +27,12 @@
   apt:
     name: 'postgresql-client'
 
-- name: Create Admin wrapper script
+- name: Create wrapper scripts
   template:
-    src:   'scripts/admin.sh.j2'
-    dest:  '{{ postgres_ha_service_path }}/admin.sh'
+    src:   '{{ item }}'
+    dest:  '{{ postgres_ha_service_path }}/{{ item | basename }}'
     owner: 'root'
     group: 'docker'
     mode:  0750
+  with_fileglob:
+    - 'templates/scripts/*.sh'
