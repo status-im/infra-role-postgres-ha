@@ -9,7 +9,13 @@
         tags: ['postgres', 'database']
         port: '{{ postgres_ha_cont_port }}'
         checks:
-          - id:   '{{ postgres_ha_service_name }}-status'
-            name: 'PostgreSQL DB Healthcheck'
-            type: 'tcp'
-            tcp:  'localhost:{{ postgres_ha_cont_port }}'
+          - id:       '{{ postgres_ha_service_name }}-status'
+            name:     'PostgreSQL DB Healthcheck'
+            type:     'tcp'
+            tcp:      'localhost:{{ postgres_ha_cont_port }}'
+
+          - id:       '{{ postgres_ha_service_name }}-mirror'
+            name:     'PostgreSQL Replica Healthcheck'
+            disabled: '{{ not postgres_ha_replica_enabled }}'
+            type:     'script'
+            script:   '{{ postgres_ha_service_path }}/health.sh'

@@ -8,7 +8,7 @@
   when: postgres_ha_is_master
 
 - import_tasks: users.yml
-  when: postgres_ha_is_master
+  when: postgres_ha_is_master and postgres_ha_replica_enabled
 
 - import_tasks: replica.yml
   when: not postgres_ha_is_master

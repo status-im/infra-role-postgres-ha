@@ -18,6 +18,7 @@ postgres_ha_cont_tmp_size: '256K'
 postgres_ha_admin_user: 'postgres'
 postgres_ha_admin_pass: 'changeMeIfYouCare'
 # Replication Auth
+postgres_ha_replica_enabled: true
 postgres_ha_replica_user: 'replicator'
 postgres_ha_replica_pass: 'changeMeIfYouCare'
 postgres_ha_replica_slot: 'main'
