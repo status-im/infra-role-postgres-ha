@@ -14,8 +14,7 @@
             type:     'tcp'
             tcp:      'localhost:{{ postgres_ha_cont_port }}'
 
-          - id:       '{{ postgres_ha_service_name }}-mirror'
+          - id:       '{{ postgres_ha_service_name }}-{{ postgres_ha_replica_enabled | ternary("replica", "tables") }}'
             name:     'PostgreSQL {{ postgres_ha_replica_enabled | ternary("Replica", "Tables") }} Healthcheck'
-            disabled: '{{ not postgres_ha_replica_enabled }}'
             type:     'script'
             script:   '{{ postgres_ha_service_path }}/health.sh'
