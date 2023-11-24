@@ -7,6 +7,6 @@
     systemd_timer_user:        '{{ postgres_ha_backup_user }}'
     systemd_timer_frequency:   '{{ postgres_ha_backup_frequency }}'
     systemd_timer_timeout_sec: '{{ postgres_ha_backup_timeout }}'
-    systemd_timer_script_path: '/docker/{{ postgres_ha_service_name }}/backup.sh'
+    systemd_timer_script_path: '{{ postgres_ha_service_path }}/backup.sh'
     systemd_timer_after_extra: 'docker.service'
     systemd_timer_start_on_creation: false
