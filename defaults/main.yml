@@ -14,6 +14,10 @@ postgres_ha_host_uid: '{{ 100000 + postgres_ha_cont_uid | int }}'
 postgres_ha_cont_run_size: '512K'
 postgres_ha_cont_tmp_size: '256K'
 
+# Alter System
+postgres_alter_system_settings: {}
+#  max_wal_size: '1GB'
+
 # Admin Auth
 postgres_ha_admin_user: 'postgres'
 postgres_ha_admin_pass: 'changeMeIfYouCare'
