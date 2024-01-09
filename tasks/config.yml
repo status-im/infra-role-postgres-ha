@@ -20,6 +20,7 @@
     owner: '{{ postgres_ha_host_uid }}'
     group: 'dockremap'
     mode:  0640
+  register: postgres_ha_init_files
   with_fileglob:
     - 'templates/init/*.sql'
 

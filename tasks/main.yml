@@ -16,6 +16,9 @@
 - import_tasks: start.yml
   when: not postgres_ha_is_master
 
+- import_tasks: reinit.yml
+  when: postgres_ha_init_files.changed
+
 - import_tasks: consul.yml
 
 - import_tasks: backup.yml

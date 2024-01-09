@@ -1,0 +1,8 @@
+---
+- name: Re-run init scripts to apply config changes
+  command: |
+    {{ postgres_ha_service_path }}/admin.sh -f {{ item.dest }}
+  with_items: '{{ postgres_ha_init_files.results }}'
+  when: item.changed
+  loop_control:
+    label: '{{ item.dest }}'
