@@ -8,10 +8,9 @@
     mode:  0644
 
 - name: 'Create database container'
-  docker_compose:
+  community.docker.docker_compose_v2:
     project_src: '{{ postgres_ha_service_path }}'
     files:       '{{ postgres_ha_compose_file }}'
     state:       '{{ compose_state }}'
-    restarted:   '{{ compose_restart }}'
     recreate:    '{{ compose_recreate }}'
-    pull: true
+    pull:        always

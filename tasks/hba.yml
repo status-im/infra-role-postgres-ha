@@ -16,7 +16,7 @@
 
 - name: 'Restart database container'
   when: postgres_ha_hba.changed
-  docker_compose:
+  community.docker.docker_compose_v2:
     project_src: '{{ postgres_ha_service_path }}'
     files:       '{{ postgres_ha_compose_file }}'
-    restarted:   true
+    state:       restarted

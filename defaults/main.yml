@@ -54,6 +54,5 @@ postgres_ha_backup_user: 'root'
 postgres_ha_consul_service: 'postgres'
 
 # general container management
-compose_recreate: 'smart'
+compose_recreate: 'auto'
 compose_state: 'present'
-compose_restart: false
