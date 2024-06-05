@@ -24,12 +24,14 @@ postgres_ha_databases:
   - name: my-db
     user: my-user
     pass: my-pass
+    script: 'CREATE SCHEMA IF NOT EXIST example;' 
 
   - name: my-other-db
     user: my-other-user
     pass: my-other-pass
 ```
 The `user` field is optional. DB name is used by default.
+The field `script` is optional and allow to add commands to run when creating the database.
 
 Backup settings can be adjusted using:
 ```yaml

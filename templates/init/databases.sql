@@ -13,4 +13,7 @@ LOCALE "{{ db.locale }}"
 TEMPLATE "{{ db.template }}"
 {% endif %}
 ;
+{% if 'script' in db %}
+{{ db.script }}
+{% endif %}
 {% endfor %}
