@@ -24,7 +24,7 @@ services:
       - '{{ postgres_ha_cont_init_vol }}:/docker-entrypoint-initdb.d'
       - '{{ postgres_ha_cont_backup_vol }}:/backup'
     command: |
-      -p {{ postgres_ha_cont_port }}
+      -p {{ postgres_ha_cont_port }} -c config_file=/var/lib/postgresql/data/postgresql.conf
     healthcheck:
       interval: 30s
       retries: 5
