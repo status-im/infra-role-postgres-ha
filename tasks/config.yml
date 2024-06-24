@@ -14,13 +14,12 @@
 
 - name: Create PostgreSQL config file
   template:
-    src:   '{{ item }}'
+    src:   'templates/postgresql.conf'
     dest:  '{{ postgres_ha_cont_data_vol }}/{{ item | basename }}'
     owner: '{{ postgres_ha_host_uid }}'
     group: 'dockremap'
     mode:  0660
-  register: postgres_ha_postgres_config_file
-  with_fileglob:
+  with_items:
     - 'templates/postgresql.conf'
 
 - name: Create dbinit SQL files
