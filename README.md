@@ -42,7 +42,7 @@ postgres_ha_backup_timeout: 1200
 
 And database settings can be modified using the [`ALTER SYSTEM`](https://www.postgresql.org/docs/current/sql-altersystem.html) configuration:
 ```yaml
-postgres_alter_system_settings:
+postgres_ha_alter_system_settings:
   checkpoint_timeout: '5min'
   max_wal_size: '1GB'
   min_wal_size: '80MB'
