@@ -19,5 +19,5 @@ for DB in "${DATABASES[@]}"; do
       -U {{ postgres_ha_admin_user }} \
       "${DB}"
 done
-chown dockremap:dockremap "${BKP_DIR}"/*
+chown dockremap:dockremap -R "${BKP_DIR}"/*
 chmod 750 -R "${BKP_DIR}"
