@@ -16,6 +16,7 @@ for DB in "${DATABASES[@]}"; do
     pg_dump \
       -F directory \
       -f "/backup/${DB}" \
+      -p {{ postgres_ha_cont_port }} \
       -U {{ postgres_ha_admin_user }} \
       "${DB}"
 done
