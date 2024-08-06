@@ -33,6 +33,20 @@ postgres_ha_databases:
 The `user` field is optional. DB name is used by default.
 The field `script` is optional and allow to add commands to run when creating the database.
 
+Additional users can be defined using:
+```yaml
+postgres_ha_users:
+  - name: 'devops'
+    pass: 'hunter2'
+    db:   'my-db'
+    priv: 'ALL PRIVILEGES'
+
+  - name: 'security'
+    pass: 'hunter3'
+    db:   'my-db'
+    priv: 'pg_read_all_data'
+```
+
 Backup settings can be adjusted using:
 ```yaml
 postgres_ha_backup: false

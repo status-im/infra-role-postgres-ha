@@ -41,6 +41,13 @@ postgres_ha_databases: []
 #  - name: 'dbtest'
 #    user: 'dbuser'
 #    pass: 'dbpass'
+#    locale: 'abc'
+#    script: 'qwe'
+#    template: 'xyz'
+
+postgres_ha_users: []
+#  - user: 'dbuser'
+#    pass: 'dbpass'
 
 # Backups
 postgres_ha_backup: true
