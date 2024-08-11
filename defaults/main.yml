@@ -59,6 +59,12 @@ postgres_ha_backup_user: 'root'
 
 # Consul
 postgres_ha_consul_service: 'postgres'
+postgres_ha_consul_check_disabled: false
+postgres_ha_consul_check_interval: '60s'
+postgres_ha_consul_check_timeout: '5s'
+postgres_ha_consul_success_before_passing: 0
+postgres_ha_consul_failures_before_warning: 1
+postgres_ha_consul_failures_before_critical: 2
 
 # general container management
 compose_recreate: 'auto'
