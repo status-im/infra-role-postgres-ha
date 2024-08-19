@@ -14,6 +14,9 @@ services:
 {% endif %}
       # This fixes chmod errors on DB startup due to volume + userns-remap
       PGDATA: '/var/lib/postgresql/data/pgdata'
+{% if postgres_ha_cont_networks %}
+    networks: {{ postgres_ha_cont_networks | to_json }}
+{% endif %}
     ports:
       - '{{ postgres_ha_cont_port }}:{{ postgres_ha_cont_port }}'
     tmpfs:
@@ -33,3 +36,11 @@ services:
         '-p', '{{ postgres_ha_cont_port }}',
         '-U', '{{ postgres_ha_admin_user }}'
       ]
+
+{% if postgres_ha_cont_networks != [] %}
+networks:
+{% for network in postgres_ha_cont_networks %}
+  {{ network }}:
+    external: true
+{% endfor %}
+{% endif %}
