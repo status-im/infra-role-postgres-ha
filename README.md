@@ -62,6 +62,11 @@ postgres_ha_alter_system_settings:
   min_wal_size: '80MB'
 ```
 
+Container share memory can be configured with:
+```yaml
+postgres_share_memory: '1g'
+```
+
 # Management
 
 The service is managed using [Docker Compose](https://docs.docker.com/compose/):
