@@ -3,7 +3,13 @@
 
 -- Users
 {% for user in (postgres_ha_users + postgres_ha_databases) %}
-CREATE USER "{{ user.name | mandatory }}" PASSWORD '{{ user.pass | mandatory }}';
+DO $$
+BEGIN
+    CREATE USER "{{ user.name | mandatory }}" PASSWORD '{{ user.pass | mandatory }}';
+EXCEPTION WHEN duplicate_object THEN
+    RAISE NOTICE '%, skipping', SQLERRM USING ERRCODE = SQLSTATE;
+END
+$$;
 {% endfor %}
 
 -- Databases
