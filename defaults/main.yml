@@ -51,6 +51,18 @@ postgres_ha_users: []
 #  - user: 'dbuser'
 #    pass: 'dbpass'
 
+# Metrics Exporter
+postgres_ha_metrics_exporter_cont_name: 'pg-metrics-exporter'
+postgres_ha_metrics_exporter_cont_version: 'v0.15.0'
+postgres_ha_metrics_exporter_cont_image: 'quay.io/prometheuscommunity/postgres-exporter:{{ postgres_ha_metrics_exporter_cont_version}}'
+postgres_ha_metrics_exporter_cont_port: 9187
+
+# Performence Metrics Exporter
+postgres_ha_perf_metrics_exporter_disabled: true
+postgres_ha_perf_metrics_exporter_cont_name: 'pg-perf-metrics-exporter'
+postgres_ha_perf_metrics_exporter_cont_version: '1.2.6'
+postgres_ha_perf_metrics_exporter_cont_image: 'ghcr.io/coroot/coroot-pg-agent:{{ postgres_ha_perf_metrics_exporter_cont_version }}'
+postgres_ha_perf_metrics_exporter_cont_port: 9188
 # Backups
 postgres_ha_backup: true
 postgres_ha_backup_enabled: true

@@ -67,6 +67,11 @@ Container share memory can be configured with:
 postgres_share_memory: '1g'
 ```
 
+Metrics exporter for query performance can be activated with:
+```yaml
+postgres_ha_perf_metrics_exporter_disabled: false
+```
+
 # Management
 
 The service is managed using [Docker Compose](https://docs.docker.com/compose/):
@@ -75,4 +80,5 @@ admin@node-01.example.org:/docker/postgres-ha % docker-compose ps
    Name                 Command                 State                    Ports
 --------------------------------------------------------------------------------------------
 postgres-ha   docker-entrypoint.sh -p 5433   Up (healthy)   5432/tcp, 0.0.0.0:5433->5433/tcp
+pg-metrics-exporter   /bin/postgres_exporter         Up             0.0.0.0:9187->9187/tcp
 ```

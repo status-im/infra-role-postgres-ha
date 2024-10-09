@@ -24,3 +24,25 @@
             name:     'PostgreSQL {{ postgres_ha_replica_enabled | ternary("Replica", "Tables") }} Healthcheck'
             type:     'script'
             script:   '{{ postgres_ha_service_path }}/health.sh'
+      - name: 'postgres-metrics'
+        id:   '{{ postgres_ha_metrics_exporter_cont_name }}'
+        tags: [ 'postgres-metrics', 'perf']
+        port: '{{ postgres_ha_metrics_exporter_cont_port }}'
+        address: '{{ ansible_local.wireguard.address }}'
+        checks:
+          - id: '{{ postgres_ha_metrics_exporter_cont_name }}-status'
+            name: 'PostgreSQL Metrics exporter'
+            type: 'tcp'
+            tcp: 'localhost:{{ postgres_ha_metrics_exporter_cont_port }}'
+      - name: 'postgres-perf-metrics'
+        id:   '{{ postgres_ha_perf_metrics_exporter_cont_name }}'
+        tags: [ 'postgres-metrics', 'perf']
+        port: '{{ postgres_ha_perf_metrics_exporter_cont_port }}'
+        address: '{{ ansible_local.wireguard.address }}'
+        disabled: '{{ postgres_ha_perf_metrics_exporter_disabled | to_json }}'
+        checks:
+          - id: '{{ postgres_ha_perf_metrics_exporter_cont_name }}-status'
+            name: 'PostgreSQL Metrics exporter'
+            type: 'tcp'
+            tcp: 'localhost:{{ postgres_ha_perf_metrics_exporter_cont_port }}'
+
