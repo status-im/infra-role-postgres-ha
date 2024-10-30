@@ -64,7 +64,7 @@ postgres_ha_alter_system_settings:
 
 Container share memory can be configured with:
 ```yaml
-postgres_share_memory: '1g'
+postgres_ha_share_memory: '1g'
 ```
 
 Metrics exporter for query performance can be activated with:

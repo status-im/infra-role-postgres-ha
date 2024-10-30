@@ -5,8 +5,8 @@ services:
     container_name: '{{ postgres_ha_cont_name }}'
     image: '{{ postgres_ha_cont_image }}'
     restart: always
-{% if postgres_share_memory is defined %}
-    shm_size: '{{ postgres_share_memory }}'
+{% if postgres_ha_share_memory is defined %}
+    shm_size: '{{ postgres_ha_share_memory }}'
 {% endif %}
     environment:
       POSTGRES_DB:       '{{ postgres_ha_db_name | mandatory }}'
