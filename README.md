@@ -24,7 +24,7 @@ postgres_ha_databases:
   - name: my-db
     user: my-user
     pass: my-pass
-    script: 'CREATE SCHEMA IF NOT EXIST example;' 
+    script: 'CREATE SCHEMA IF NOT EXIST example;'
 
   - name: my-other-db
     user: my-other-user
@@ -45,6 +45,11 @@ postgres_ha_users:
     pass: 'hunter3'
     db:   'my-db'
     priv: 'pg_read_all_data'
+```
+
+Additionaly, an init script can be run on the main database:
+```yaml
+postgres_ha_init_script: 'CREATE TABLE example (example TEXT);'
 ```
 
 Backup settings can be adjusted using:

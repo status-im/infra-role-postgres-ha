@@ -51,6 +51,9 @@ postgres_ha_users: []
 #  - user: 'dbuser'
 #    pass: 'dbpass'
 
+# Additional Init script
+#postgres_ha_init_script:
+
 # Metrics Exporter
 postgres_ha_metrics_exporter_cont_name: 'pg-metrics-exporter'
 postgres_ha_metrics_exporter_cont_version: 'v0.15.0'

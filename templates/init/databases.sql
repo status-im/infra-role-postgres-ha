@@ -33,3 +33,5 @@ TEMPLATE "{{ db.template }}"
 GRANT {{ user.priv | default("pg_read_all_data") }} ON DATABASE "{{ user.db | mandatory }}" TO "{{ user.name | mandatory }}";
 GRANT {{ user.priv | default("pg_read_all_data") }} ON SCHEMA public TO "{{ user.name | mandatory }}";
 {% endfor %}
+-- Run additional init script
+{{ postgres_ha_init_script }}
