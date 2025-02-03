@@ -30,8 +30,10 @@ TEMPLATE "{{ db.template }}"
 -- Permissions
 {% for user in postgres_ha_users %}
 \connect "{{ user.db | mandatory }}";
-GRANT {{ user.priv | default("pg_read_all_data") }} ON DATABASE "{{ user.db | mandatory }}" TO "{{ user.name | mandatory }}";
-GRANT {{ user.priv | default("pg_read_all_data") }} ON SCHEMA public TO "{{ user.name | mandatory }}";
+GRANT {{ user.priv | default("CONNECT") }} ON DATABASE "{{ user.db | mandatory }}" TO "{{ user.name | mandatory }}";
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO "{{ user.name | mandatory }}";
 {% endfor %}
 -- Run additional init script
+{% if postgres_ha_init_script is defined %}
 {{ postgres_ha_init_script }}
+{% endif %}
