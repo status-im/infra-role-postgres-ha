@@ -49,6 +49,10 @@ services:
       DATA_SOURCE_PASS: '{{ postgres_ha_admin_pass }}'
     ports:
       - '{{ postgres_ha_metrics_exporter_cont_port }}:{{ postgres_ha_metrics_exporter_cont_port }}'
+    command:
+      --log.level={{ postgres_ha_metrics_exporter_log_level }} --web.listen-address=":{{ postgres_ha_metrics_exporter_cont_port }}"
+    depends_on:
+      - db
 
 {% if not postgres_ha_perf_metrics_exporter_disabled %}
   perf-metrics-exporter:
