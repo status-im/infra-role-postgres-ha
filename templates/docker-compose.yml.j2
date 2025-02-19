@@ -1,10 +1,9 @@
 ---
-version: '3.7'
 services:
   db:
     container_name: '{{ postgres_ha_cont_name }}'
     image: '{{ postgres_ha_cont_image }}'
-    restart: always
+    restart: 'always'
 {% if postgres_ha_share_memory is defined %}
     shm_size: '{{ postgres_ha_share_memory }}'
 {% endif %}
@@ -42,6 +41,7 @@ services:
 
   metrics-exporter:
     image: '{{ postgres_ha_metrics_exporter_cont_image }}'
+    restart: 'always'
     container_name: '{{ postgres_ha_metrics_exporter_cont_name }}'
     environment:
       DATA_SOURCE_URI:  '{{ postgres_ha_cont_name }}:{{ postgres_ha_cont_port }}/{{ postgres_ha_db_name }}?sslmode=disable'
@@ -57,6 +57,7 @@ services:
 {% if not postgres_ha_perf_metrics_exporter_disabled %}
   perf-metrics-exporter:
     image: '{{ postgres_ha_perf_metrics_exporter_cont_image }}'
+    restart: 'always'
     container_name: '{{ postgres_ha_perf_metrics_exporter_cont_name }}'
     environment:
       DSN:"postgresql://{{ postgres_ha_cont_name }}:{{ postgres_ha_cont_port }}@{{ postgres_ha_cont_name }}:{{postgres_ha_cont_port }}/{{ postgres_ha_db_name }}?connect_timeout=1&statement_timeout=30000&sslmode=disable"
