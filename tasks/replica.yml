@@ -9,7 +9,9 @@
   args:
     chdir: '{{ postgres_ha_service_path }}'
   command: >
-    docker-compose run --rm
+    docker-compose 
+        -f {{ postgres_ha_compose_file }}
+      run --rm
         -e PGPASSWORD={{ postgres_ha_replica_pass }}
         --name={{ postgres_ha_service_name }}-init
         -- db 
