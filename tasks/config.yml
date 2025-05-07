@@ -37,3 +37,11 @@
     mode:  0750
   with_fileglob:
     - 'templates/scripts/*.sh'
+
+- name: 'Create compose file'
+  template:
+    src:   'docker-compose.yml.j2'
+    dest:  '{{ postgres_ha_compose_file }}'
+    owner: 'dockremap'
+    group: 'docker'
+    mode:  0644
