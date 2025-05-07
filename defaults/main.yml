@@ -27,7 +27,7 @@ postgres_ha_admin_pass: 'changeMeIfYouCare'
 postgres_ha_replica_enabled: true
 postgres_ha_replica_user: 'replicator'
 postgres_ha_replica_pass: 'changeMeIfYouCare'
-postgres_ha_replica_slot: 'main'
+postgres_ha_replica_slot: '{{ inventory_hostname | regex_replace("[.-]", "_") }}'
 #postgres_ha_replica_host: 'db-master.example.org'
 #postgres_ha_replica_port: 5432
 #postgres_ha_replica_allowed_addresses: ['10.0.0.0/8']
