@@ -36,7 +36,8 @@ services:
       test: [
         'CMD', 'pg_isready',
         '-p', '{{ postgres_ha_cont_port }}',
-        '-U', '{{ postgres_ha_admin_user }}'
+        '-U', '{{ postgres_ha_admin_user }}',
+        '-d', 'postgres'
       ]
 
   metrics-exporter:

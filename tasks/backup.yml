@@ -1,5 +1,6 @@
 ---
-- name: 'Create timer for database backup'
+- name: 'Create timer for the full database backup'
+  when: postgres_ha_backup_full
   include_role: name=infra-role-systemd-timer
   vars:
     systemd_timer_description: 'Dump High-Availability PostgreSQL database.'
@@ -11,3 +12,30 @@
     systemd_timer_script_path: '{{ postgres_ha_service_path }}/backup.sh'
     systemd_timer_after_extra: 'docker.service'
     systemd_timer_start_on_creation: false
+
+- name: 'Create timer for the partial database backup'
+  when: not postgres_ha_backup_full
+  include_role: name=infra-role-systemd-timer
+  vars:
+    systemd_timer_description: 'Partial dump of High-Availability PostgreSQL database for {{ backup.name }}.'
+    systemd_timer_name:        '{{ postgres_ha_backup_service_name }}-{{ backup.name }}'
+    systemd_timer_user:        '{{ postgres_ha_backup_user }}'
+    systemd_timer_enabled:     '{{ postgres_ha_backup_enabled }}'
+    systemd_timer_frequency:   '{{ postgres_ha_backup_frequency }}'
+    systemd_timer_timeout_sec: '{{ postgres_ha_backup_timeout }}'
+    systemd_timer_script_content: |
+      #!/usr/bin/env bash
+      BKP_DIR="{{ postgres_ha_cont_backup_vol }}/{{ backup.name }}"
+      rm -vfr "${BKP_DIR}"
+      /usr/bin/docker exec -i "{{ postgres_ha_cont_name }}" \
+        pg_dump -F directory -f "/backup/{{ backup.name }}" \
+         {% for schema_included in backup.included_schema %} -n "{{ schema_included }}" {% endfor %} \
+         {% for schema_exluded in backup.excluded_schema %}  -N "{{ schema_exluded }}"  {% endfor %} \
+        -U "{{ postgres_ha_admin_user }}" "{{ postgres_ha_db_name }}"
+      chmod 750 -R "${BKP_DIR}"
+    systemd_timer_requires_extra: 'docker.service'
+    systemd_timer_after_extra: '{{ backup.after | default(omit)}}'
+    systemd_timer_start_on_creation: false
+  with_items: '{{ postgres_ha_backup_tasks }}'
+  loop_control:
+    loop_var: 'backup'

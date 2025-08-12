@@ -58,6 +58,18 @@ postgres_ha_backup: false
 postgres_ha_backup_frequency: 'weekly'
 postgres_ha_backup_timeout: 1200
 ```
+If the database is large and a full backup may consume too many server resources (CPU, RAM, disk space), you can configure the system to back up only specific schemas instead of the entire database. This helps optimize backup size and duration. Example:
+```yaml
+postgres_ha_backup_full: false
+postgres_ha_backup_tasks:
+  - name: 'partial-dump-of-db'
+    included_schema: [ 'important_schema' ]
+    excluded_schema: [ 'not_important_schema' ]
+```
+Fields:
+* `name`: An identifier for the backup task.
+* `included_schema`: List of schemas to include in the backup.
+* `excluded_schema`: List of schemas to exclude from the backup.
 
 And database settings can be modified using the [`ALTER SYSTEM`](https://www.postgresql.org/docs/current/sql-altersystem.html) configuration:
 ```yaml

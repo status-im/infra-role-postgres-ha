@@ -5,6 +5,7 @@
       psql
         --username={{ postgres_ha_admin_user }}
         --port={{ postgres_ha_cont_port }}
+        {{ postgres_ha_db_name }}
         --command
       "DO $$
        BEGIN

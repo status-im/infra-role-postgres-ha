@@ -67,13 +67,19 @@ postgres_ha_perf_metrics_exporter_cont_name: 'pg-perf-metrics-exporter'
 postgres_ha_perf_metrics_exporter_cont_version: '1.2.6'
 postgres_ha_perf_metrics_exporter_cont_image: 'ghcr.io/coroot/coroot-pg-agent:{{ postgres_ha_perf_metrics_exporter_cont_version }}'
 postgres_ha_perf_metrics_exporter_cont_port: 9188
+
 # Backups
 postgres_ha_backup: true
+postgres_ha_backup_full: true
 postgres_ha_backup_enabled: true
 postgres_ha_backup_service_name: 'dump-{{ postgres_ha_service_name }}'
 postgres_ha_backup_frequency: daily
 postgres_ha_backup_timeout: 600
 postgres_ha_backup_user: 'root'
+postgres_ha_backup_tasks: []
+#  - name: 'isolated-schema'
+#    included_schema: [ 'important_schema' ]
+#    excluded_schema: [ 'not_important_schema' ]
 
 # Consul
 postgres_ha_consul_service: 'postgres'
