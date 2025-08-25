@@ -12,17 +12,24 @@
     - '{{ postgres_ha_cont_init_vol }}'
     - '{{ postgres_ha_cont_backup_vol }}'
 
-- name: Create dbinit SQL files
+- name: Create dbinit SQL file to create DBs
   when: postgres_ha_is_master
   template:
-    src:   '{{ item }}'
-    dest:  '{{ postgres_ha_cont_init_vol }}/{{ item | basename }}'
+    src:   'templates/init/databases.sql'
+    dest:  '{{ postgres_ha_cont_init_vol }}/databases.sql'
     owner: '{{ postgres_ha_host_uid }}'
     group: 'dockremap'
     mode:  0640
-  register: postgres_ha_init_files
-  with_fileglob:
-    - 'templates/init/*.sql'
+  register: postgres_ha_init_db
+
+- name: Create dbinit SQL file to alter system settings
+  template:
+    src:   'templates/init/alter_system.sql'
+    dest:  '{{ postgres_ha_cont_init_vol }}/alter_system.sql'
+    owner: '{{ postgres_ha_host_uid }}'
+    group: 'dockremap'
+    mode:  0640
+  register: postgres_ha_init_system
 
 - name: Install PostgreSQL client
   apt:
