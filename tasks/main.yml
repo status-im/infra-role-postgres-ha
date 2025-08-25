@@ -17,7 +17,7 @@
   when: not postgres_ha_is_master
 
 - import_tasks: reinit.yml
-  when: postgres_ha_init_files.changed
+  when: postgres_ha_init_db.changed or postgres_ha_init_system.changed
 
 - import_tasks: consul.yml
 
