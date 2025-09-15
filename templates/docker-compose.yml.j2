@@ -55,7 +55,7 @@ services:
     depends_on:
       - db
 
-{% if not postgres_ha_perf_metrics_exporter_disabled %}
+{% if postgres_ha_perf_metrics_exporter_enabled %}
   perf-metrics-exporter:
     image: '{{ postgres_ha_perf_metrics_exporter_cont_image }}'
     restart: 'always'

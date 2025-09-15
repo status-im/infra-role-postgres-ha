@@ -62,7 +62,7 @@ postgres_ha_metrics_exporter_cont_port: 9187
 postgres_ha_metrics_exporter_log_level: 'info'
 
 # Performence Metrics Exporter
-postgres_ha_perf_metrics_exporter_disabled: true
+postgres_ha_perf_metrics_exporter_enabled: false
 postgres_ha_perf_metrics_exporter_cont_name: 'pg-perf-metrics-exporter'
 postgres_ha_perf_metrics_exporter_cont_version: '1.2.6'
 postgres_ha_perf_metrics_exporter_cont_image: 'ghcr.io/coroot/coroot-pg-agent:{{ postgres_ha_perf_metrics_exporter_cont_version }}'

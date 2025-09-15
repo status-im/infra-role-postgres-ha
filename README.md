@@ -86,7 +86,7 @@ postgres_ha_share_memory: '1g'
 
 Metrics exporter for query performance can be activated with:
 ```yaml
-postgres_ha_perf_metrics_exporter_disabled: false
+postgres_ha_perf_metrics_exporter_enabled: true
 ```
 
 # Management
