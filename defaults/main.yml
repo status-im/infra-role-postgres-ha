@@ -55,7 +55,7 @@ postgres_ha_users: []
 #postgres_ha_init_script:
 
 # Metrics Exporter
-postgres_ha_metrics_exporter_cont_name: 'pg-metrics-exporter'
+postgres_ha_metrics_exporter_cont_name: '{{ postgres_ha_service_name }}-metrics'
 postgres_ha_metrics_exporter_cont_version: 'v0.16.0'
 postgres_ha_metrics_exporter_cont_image: 'quay.io/prometheuscommunity/postgres-exporter:{{ postgres_ha_metrics_exporter_cont_version}}'
 postgres_ha_metrics_exporter_cont_port: 9187
@@ -63,7 +63,7 @@ postgres_ha_metrics_exporter_log_level: 'info'
 
 # Performence Metrics Exporter
 postgres_ha_perf_metrics_exporter_enabled: false
-postgres_ha_perf_metrics_exporter_cont_name: 'pg-perf-metrics-exporter'
+postgres_ha_perf_metrics_exporter_cont_name: '{{ postgres_ha_service_name }}-perf-metrics'
 postgres_ha_perf_metrics_exporter_cont_version: '1.2.6'
 postgres_ha_perf_metrics_exporter_cont_image: 'ghcr.io/coroot/coroot-pg-agent:{{ postgres_ha_perf_metrics_exporter_cont_version }}'
 postgres_ha_perf_metrics_exporter_cont_port: 9188

@@ -40,10 +40,10 @@ services:
         '-d', 'postgres'
       ]
 
-  metrics-exporter:
+  metrics:
+    container_name: '{{ postgres_ha_metrics_exporter_cont_name }}'
     image: '{{ postgres_ha_metrics_exporter_cont_image }}'
     restart: 'always'
-    container_name: '{{ postgres_ha_metrics_exporter_cont_name }}'
     environment:
       DATA_SOURCE_URI:  '{{ postgres_ha_cont_name }}:{{ postgres_ha_cont_port }}/{{ postgres_ha_db_name }}?sslmode=disable'
       DATA_SOURCE_USER: '{{ postgres_ha_admin_user }}'
@@ -56,10 +56,10 @@ services:
       - db
 
 {% if postgres_ha_perf_metrics_exporter_enabled %}
-  perf-metrics-exporter:
+  perf-metrics:
+    container_name: '{{ postgres_ha_perf_metrics_exporter_cont_name }}'
     image: '{{ postgres_ha_perf_metrics_exporter_cont_image }}'
     restart: 'always'
-    container_name: '{{ postgres_ha_perf_metrics_exporter_cont_name }}'
     environment:
       DSN: 'postgresql://{{ postgres_ha_cont_name }}:{{ postgres_ha_cont_port }}@{{ postgres_ha_cont_name }}:{{postgres_ha_cont_port }}/{{ postgres_ha_db_name }}?connect_timeout=1&statement_timeout=30000&sslmode=disable'
       LISTEN: '0.0.0.0:{{ postgres_ha_perf_metrics_exporter_cont_port }}'
