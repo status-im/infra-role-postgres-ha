@@ -3,6 +3,6 @@
 ALTER SYSTEM SET {{ key }} = '{{ val }}';
 {% endfor %}
 {% if postgres_ha_perf_metrics_exporter_enabled %}
-CREATE extension pg_stat_statements;
 ALTER SYSTEM SET shared_preload_libraries = 'pg_stat_statements';
+CREATE extension pg_stat_statements;
 {% endif %}
