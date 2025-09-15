@@ -60,6 +60,7 @@ postgres_ha_metrics_exporter_cont_version: 'v0.16.0'
 postgres_ha_metrics_exporter_cont_image: 'quay.io/prometheuscommunity/postgres-exporter:{{ postgres_ha_metrics_exporter_cont_version}}'
 postgres_ha_metrics_exporter_cont_port: 9187
 postgres_ha_metrics_exporter_log_level: 'info'
+postgres_ha_metrics_exporter_extra_flags: ['--no-collector.locks']
 
 # Performence Metrics Exporter
 postgres_ha_perf_metrics_exporter_enabled: false

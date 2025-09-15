@@ -50,8 +50,12 @@ services:
       DATA_SOURCE_PASS: '{{ postgres_ha_admin_pass }}'
     ports:
       - '{{ postgres_ha_metrics_exporter_cont_port }}:{{ postgres_ha_metrics_exporter_cont_port }}'
-    command:
-      --log.level={{ postgres_ha_metrics_exporter_log_level }} --web.listen-address=":{{ postgres_ha_metrics_exporter_cont_port }}"
+    command: |
+      --log.level={{ postgres_ha_metrics_exporter_log_level }}
+      --web.listen-address=':{{ postgres_ha_metrics_exporter_cont_port }}'
+{% for flag in postgres_ha_metrics_exporter_extra_flags %}
+      {{ flag | mandatory }}
+{% endfor %}
     depends_on:
       - db
 
