@@ -65,7 +65,7 @@ services:
     image: '{{ postgres_ha_perf_metrics_exporter_cont_image }}'
     restart: 'always'
     environment:
-      DSN: 'postgresql://{{ postgres_ha_cont_name }}:{{ postgres_ha_cont_port }}@{{ postgres_ha_cont_name }}:{{postgres_ha_cont_port }}/{{ postgres_ha_db_name }}?connect_timeout=1&statement_timeout=30000&sslmode=disable'
+      DSN: 'postgresql://{{ postgres_ha_admin_user }}:{{ postgres_ha_admin_pass }}@{{ postgres_ha_cont_name }}:{{postgres_ha_cont_port }}/postgres?connect_timeout=1&statement_timeout=30000&sslmode=disable'
       LISTEN: '0.0.0.0:{{ postgres_ha_perf_metrics_exporter_cont_port }}'
     ports:
       - '{{ postgres_ha_perf_metrics_exporter_cont_port }}:{{ postgres_ha_perf_metrics_exporter_cont_port }}'
