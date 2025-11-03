@@ -48,8 +48,11 @@ postgres_ha_databases: []
 #    template: 'xyz'
 
 postgres_ha_users: []
-#  - user: 'dbuser'
-#    pass: 'dbpass'
+#  - user:  'dbuser'
+#    pass:  'dbpass'
+#    db:    'example_db'
+#    priv:  'pg_read_all_data'
+#    extra: 'GRANT INSERT ON example_schema.example_table TO security'
 
 # Additional Init script
 #postgres_ha_init_script:

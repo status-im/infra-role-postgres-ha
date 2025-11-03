@@ -36,15 +36,16 @@ The field `script` is optional and allow to add commands to run when creating th
 Additional users can be defined using:
 ```yaml
 postgres_ha_users:
-  - name: 'devops'
-    pass: 'hunter2'
-    db:   'my-db'
-    priv: 'ALL PRIVILEGES'
+  - name:  'devops'
+    pass:  'hunter2'
+    db:    'my-db'
+    priv:  'ALL PRIVILEGES'
 
-  - name: 'security'
-    pass: 'hunter3'
-    db:   'my-db'
-    priv: 'pg_read_all_data'
+  - name:  'security'
+    pass:  'hunter3'
+    db:    'my-db'
+    priv:  'pg_read_all_data'
+    extra: 'GRANT INSERT ON example_schema.example_table TO security'
 ```
 
 Additionaly, an init script can be run on the main database:
