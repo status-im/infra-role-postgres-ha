@@ -14,6 +14,8 @@
         name: '{{ postgres_ha_consul_service }}'
         tags: ['postgres', 'database']
         port: '{{ postgres_ha_cont_port }}'
+        meta:
+          container: '{{ postgres_ha_service_name }}'
         checks:
           - id:       '{{ postgres_ha_service_name }}-status'
             name:     'PostgreSQL DB Healthcheck'
@@ -27,9 +29,11 @@
 
       - name: 'postgres-metrics'
         id:   '{{ postgres_ha_metrics_exporter_cont_name }}'
-        tags: [ 'postgres-metrics', 'perf']
+        tags: [ 'postgres-metrics']
         port: '{{ postgres_ha_metrics_exporter_cont_port }}'
         address: '{{ ansible_local.wireguard.address }}'
+        meta:
+          container: '{{ postgres_ha_metrics_exporter_cont_name }}'
         checks:
           - id: '{{ postgres_ha_metrics_exporter_cont_name }}-status'
             name: 'PostgreSQL Metrics exporter'
@@ -42,6 +46,8 @@
         port: '{{ postgres_ha_perf_metrics_exporter_cont_port }}'
         address: '{{ ansible_local.wireguard.address }}'
         disabled: '{{ not postgres_ha_perf_metrics_exporter_enabled | to_json }}'
+        meta:
+          container: '{{ postgres_ha_perf_metrics_exporter_cont_name }}'
         checks:
           - id: '{{ postgres_ha_perf_metrics_exporter_cont_name }}-status'
             name: 'PostgreSQL Metrics exporter'
