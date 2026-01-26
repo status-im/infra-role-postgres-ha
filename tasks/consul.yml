@@ -45,7 +45,7 @@
         tags: [ 'postgres-metrics', 'perf']
         port: '{{ postgres_ha_perf_metrics_exporter_cont_port }}'
         address: '{{ ansible_local.wireguard.address }}'
-        disabled: '{{ not postgres_ha_perf_metrics_exporter_enabled | to_json }}'
+        disabled: '{{ not postgres_ha_perf_metrics_exporter_enabled }}'
         meta:
           container: '{{ postgres_ha_perf_metrics_exporter_cont_name }}'
         checks:
