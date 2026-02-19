@@ -1,8 +1,10 @@
 ---
 - name: 'Create database container'
   community.docker.docker_compose_v2:
-    project_src: '{{ postgres_ha_service_path }}'
-    files:       '{{ postgres_ha_compose_file }}'
-    state:       '{{ compose_state }}'
-    recreate:    '{{ compose_recreate }}'
-    pull:        always
+    project_src:  '{{ postgres_ha_service_path }}'
+    files:        '{{ postgres_ha_compose_file }}'
+    state:        '{{ compose_state }}'
+    recreate:     '{{ compose_recreate }}'
+    pull:         always
+    wait:         true
+    wait_timeout: 60
