@@ -4,6 +4,12 @@ services:
     container_name: '{{ postgres_ha_cont_name }}'
     image: '{{ postgres_ha_cont_image }}'
     restart: 'always'
+    deploy:
+      resources:
+        limits:
+          memory: '{{ postgres_ha_cont_mem_limit }}M'
+        reservations:
+          memory: '{{ postgres_ha_cont_mem_reserve }}M'
 {% if postgres_ha_share_memory is defined %}
     shm_size: '{{ postgres_ha_share_memory }}'
 {% endif %}
