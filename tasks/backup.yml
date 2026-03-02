@@ -25,6 +25,7 @@
     systemd_timer_timeout_sec: '{{ postgres_ha_backup_timeout }}'
     systemd_timer_script_content: |
       #!/usr/bin/env bash
+      set -e
       BKP_DIR="{{ postgres_ha_cont_backup_vol }}/{{ backup.name }}"
       rm -vfr "${BKP_DIR}"
       /usr/bin/docker exec -i "{{ postgres_ha_cont_name }}" \
