@@ -32,6 +32,7 @@
         pg_dump -F directory -f "/backup/{{ backup.name }}" \
          {% for schema_included in backup.included_schema %} -n "{{ schema_included }}" {% endfor %} \
          {% for schema_exluded in backup.excluded_schema %}  -N "{{ schema_exluded }}"  {% endfor %} \
+        -p {{ postgres_ha_cont_port }} \
         -U "{{ postgres_ha_admin_user }}" "{{ postgres_ha_db_name }}"
       chmod 750 -R "${BKP_DIR}"
     systemd_timer_requires_extra: 'docker.service'
